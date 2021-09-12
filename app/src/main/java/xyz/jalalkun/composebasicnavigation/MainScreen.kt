@@ -45,7 +45,7 @@ fun MainScreen(navHostController: NavHostController){
             onClick = {navHostController.navigate("screen_kedua")}
         ){
             Text(
-                text = "Ke Screen Kedua",
+                text = "Ke List Card",
                 textAlign = TextAlign.Center,
                 color = Color.White
             )
