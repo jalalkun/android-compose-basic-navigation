@@ -1,11 +1,14 @@
 # android-compose-basic-navigation
 Android Compose Basic Navigation
 
-Rekap belajar Android Compose
+Learn Android Jetpack Compose
 
-dimulai dengan Basic Navigation untuk berpindah antar View
+Check Point in my project
 
-link blog :https://www.jalalkun.xyz/2021/08/android-compose-basic-navigation.html
-
-Update 12/09/2021
-Merubah Screen Kedua menjadi contoh List Data atau pengganti RecyclerView
+| Feature              | Done |
+|----------------------|------|
+| MVVM                 |      |
+| Coroutine            |      |
+| Dependency Injection |      |
+| Retrofit             |      |
+| Modularization       |      |
