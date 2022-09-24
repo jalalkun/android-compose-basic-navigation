@@ -1,8 +1,6 @@
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    kotlin("kapt")
-    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -48,7 +46,7 @@ android {
 }
 
 dependencies {
-
+    implementation(project(":apiservice"))
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.5.1")
     implementation("com.google.android.material:material:1.6.1")
@@ -65,19 +63,10 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.5.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 
-    implementation("io.insert-koin:koin-android:3.2.0")
+    implementation("io.insert-koin:koin-androidx-compose:3.2.0")
     implementation("io.insert-koin:koin-core:3.2.0")
     implementation("io.coil-kt:coil-compose:2.2.1")
     implementation("androidx.compose.runtime:runtime-livedata:1.2.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
 
-    //Hilt
-    implementation("com.google.dagger:hilt-android:2.37")
-    kapt("com.google.dagger:hilt-android-compiler:2.37")
-    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0")
-    kapt("androidx.hilt:hilt-compiler:1.0.0")
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
-}
-kapt {
-    correctErrorTypes = true
 }

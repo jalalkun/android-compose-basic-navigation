@@ -22,6 +22,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField(String::class.java.simpleName,"BASE_URL", "\"https://randomuser.me/\"")
+        }
+        debug {
+            buildConfigField(String::class.java.simpleName,"BASE_URL", "\"https://randomuser.me/\"")
         }
     }
     compileOptions {
@@ -43,11 +47,9 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
-// Network Debugger
     debugImplementation("com.github.chuckerteam.chucker:library:3.5.2")
     releaseImplementation("com.github.chuckerteam.chucker:library-no-op:3.5.2")
 
-    // Network connection
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.6")

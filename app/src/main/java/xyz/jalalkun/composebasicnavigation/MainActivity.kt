@@ -43,7 +43,7 @@ fun Navigation(navController: NavHostController){
             MainScreen(navHostController = navController)
         }
         composable("screen_kedua"){
-            ScreenKedua(navHostController = navController)
+            SecondScreen(navHostController = navController)
         }
         composable("screen_ketiga"){
             ScreenKetiga(navHostController = navController)
