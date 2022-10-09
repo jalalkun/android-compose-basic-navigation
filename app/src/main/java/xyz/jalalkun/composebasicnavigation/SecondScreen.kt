@@ -1,6 +1,7 @@
 package xyz.jalalkun.composebasicnavigation
 
 import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,29 +17,25 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import coil.compose.AsyncImage
 import com.jalalkun.apiservice.ProfileViewModel
 import com.jalalkun.apiservice.models.Profile
 import com.jalalkun.apiservice.utils.Resource
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun SecondScreen(navHostController: NavHostController){
+fun SecondScreen(navHostController: NavHostController) {
     val composableScope = rememberCoroutineScope()
     val viewModel = getViewModel<ProfileViewModel>()
     composableScope.launch {
-        Log.e("SecondScreen", "coroutine call" )
+        Log.e("SecondScreen", "coroutine call")
         viewModel.getProfiles()
     }
     Scaffold {
@@ -47,13 +44,13 @@ fun SecondScreen(navHostController: NavHostController){
 }
 
 @Composable
-private fun SecondScreenView(resource: Resource){
-    when(resource){
+private fun SecondScreenView(resource: Resource) {
+    when (resource) {
         is Resource.Success<*> -> {
             ResultScreen(
-                if (resource.data is List<*>){
+                if (resource.data is List<*>) {
                     (resource.data as List<*>).filterIsInstance<Profile>()
-                }else{
+                } else {
                     listOf()
                 }
             )
@@ -71,17 +68,17 @@ private fun SecondScreenView(resource: Resource){
 }
 
 @Composable
-private fun Error(message: String){
+private fun Error(message: String) {
     Text(text = "Error $message")
 }
 
 @Composable
-private fun Loading(){
+private fun Loading() {
     Text(text = "Loading....")
 }
 
 @Composable
-private fun ResultScreen(list: List<Profile>){
+private fun ResultScreen(list: List<Profile>) {
     Scaffold {
         Column(
             modifier = Modifier
@@ -104,44 +101,46 @@ private fun ResultScreen(list: List<Profile>){
                     .padding(16.dp)
             ) {
                 items(items = list, itemContent = { item ->
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(8.dp)
-                            .clip(shape = RoundedCornerShape(4.dp)),
-                        backgroundColor = Color.LightGray
-                    ) {
-                        Text(
-                            text = "${item.name?.title} ${item.name?.first} ${item.name?.last}",
-                            modifier = Modifier.padding(8.dp)
-                        )
-                    }
+                    CardProfile(profile = item)
                 })
             }
         }
     }
 }
 
-@Preview
 @Composable
-fun Prev(){
+private fun CardProfile(profile: Profile){
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clip(shape = RoundedCornerShape(4.dp)),
+            .clip(shape = RoundedCornerShape(4.dp))
+        ,
         backgroundColor = Color.LightGray
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
-            Row(modifier = Modifier.fillMaxWidth()) {
-                Text(
-                    text = "Mr JalalKun",
-                    modifier = Modifier.padding(8.dp)
-                )
-                Text(text = "Image",
-                    modifier = Modifier.align(Alignment.End)
-                    )
-            }
+            AsyncImage(
+                model = profile.picture?.medium,
+                contentDescription = "",
+                modifier = Modifier
+                    .width(150.dp)
+                    .height(150.dp)
+                    .padding(10.dp)
+                    .align(Alignment.CenterHorizontally)
+            )
+            Text(
+                text = "${profile.name?.title} ${profile.name?.first} ${profile.name?.last}",
+                modifier = Modifier
+                    .padding(8.dp)
+                    .fillMaxWidth(),
+                textAlign = TextAlign.Center
+            )
         }
     }
+}
+
+@Preview
+@Composable
+fun Prev() {
+    CardProfile(profile = Profile())
 }
